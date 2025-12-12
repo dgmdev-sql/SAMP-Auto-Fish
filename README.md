@@ -1,7 +1,6 @@
 # Auto Fish Mod for GTA SA:MP
 
-**Author:** Ryu S. Yamaguchi
-
+**Author:** Ryu S. Yamaguchi  
 **Discord:** ryu.sql
 
 ---
@@ -16,19 +15,20 @@ It automatically fishes at Santa Maria Pier or in any boat in the ocean. It keep
 
 ## Features
 
-- Automatically `/fish`.
+- Automatically `/fish`.  
 - Checks fish weight after each catch.  
-- Automatically throws back fish below the configured minimum weight using `/throwback`.
-- Toggle auto-fishing with `/afish`.
+- Automatically throws back fish below the configured minimum weight using `/throwback`.  
+- Toggle auto-fishing with `/afish`.  
 
 ---
 
 ## Installation
 
 1. Ensure **MoonLoader** is installed in your SA:MP client.  
-2. Place `auto_fish.lua` in your `MoonLoader` folder.  
-3. Start GTA SA:MP.
-4. Type `/afish` in chat to toggle auto-fishing.
+2. Download: [Click here](https://mega.nz/file/uoZmjQab#9-RfS4Z3h4382rr6abq7vz-1RzwlVNviAemCTTvogGs)
+3. Place `auto_fish.lua` in your `MoonLoader/scripts` folder.  
+4. Start GTA SA:MP.  
+5. Type `/afish` in chat to toggle auto-fishing.  
 
 ---
 
