@@ -69,7 +69,7 @@ end)
 -- ==========================
 function sampev.onServerMessage(color, text)
     if not autoFishing then return end
-    local clean = text:gsub("{.-}", "") -- remove formatting
+    local clean = text:gsub("{.-}", "")
 
     -- Not in fishing area
     if clean:find("You are not at the Santa Maria Pier") then
@@ -124,3 +124,4 @@ function main()
         -1
     )
 end
+
