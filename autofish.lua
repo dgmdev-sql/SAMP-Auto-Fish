@@ -18,7 +18,8 @@ local autoFishing = false
 local waitingForCatch = false
 local minWeight = 20           -- minimum weight to keep
 local castDelay = 1000         -- /fish delay in ms
-local throwbackDelay = 700     -- delay before using /throwback
+local throwbackDelay = 700     -- /throwback delay in ms
+local fishLinePattern = "You have caught a .- weighing (%d+%.?%d*)"
 
 -- ==========================
 -- UTILITIES
@@ -28,15 +29,6 @@ local function castFish()
         wait(castDelay)
         sampSendChat("/fish")
         waitingForCatch = true
-    end)
-end
-
-local function throwbackFish()
-    lua_thread.create(function()
-        wait(throwbackDelay)
-        sampSendChat("/throwback")
-        wait(throwbackDelay)
-        castFish()
     end)
 end
 
@@ -91,16 +83,6 @@ function sampev.onServerMessage(color, text)
         return
     end
 
-    -- Inventory full and fish caught
-    if clean:find("can't carry more than five fish") then
-        sampAddChatMessage(
-            "{00FFFF}[AutoFish]: {FFFFFF}All fish are good! You may now sell or release them.",
-            -1
-        )
-        stopAutoFish("")
-        return
-    end
-
     -- Bad catch
     local badCatch = clean:find("line snapped")
                      or clean:find("threw it away")
@@ -114,12 +96,23 @@ function sampev.onServerMessage(color, text)
     -- Successful catch
     if waitingForCatch and clean:find("You have caught a") then
         waitingForCatch = false
-        local weight = tonumber(clean:match("Weight:%s*(%d+%.?%d*)"))
-        if weight and weight < minWeight then
-            throwbackFish()
-        else
-            castFish()
+        -- Check fish weight
+        local weight = clean:match(fishLinePattern)
+        if weight then
+            weight = tonumber(weight)
+            if weight < minWeight then
+                -- Throw back the fish
+                lua_thread.create(function()
+                    wait(throwbackDelay)
+                    sampSendChat("/throwback")
+                    wait(throwbackDelay)
+                    castFish()
+                end)
+                return
+            end
         end
+        -- Keep the fish if weight >= minWeight
+        castFish()
         return
     end
 end
