@@ -25,7 +25,7 @@ It automatically fishes at Santa Maria Pier or in any boat in the ocean. It keep
 ## Installation
 
 1. Ensure **MoonLoader** is installed in your SA:MP client.  
-2. Download: [Click here](https://mega.nz/file/31g0mYbT#9VDKZInV2rqDZOibgtQyzaxKnJtcyyZb-HJiDYCKPfc)
+2. Download: [Click here](https://mega.nz/file/DsIzCIqa#n1iaYg75N_I1AnQglF_7xR5BN2i-_17YsIPtTYG07hY)
 3. Place `auto_fish.lua` in your `MoonLoader/scripts` folder.  
 4. Start GTA SA:MP.  
 5. Type `/afish` in chat to toggle auto-fishing.  
