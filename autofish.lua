@@ -1,6 +1,6 @@
 script_name("Auto Fish Mod")
 script_author("Ryu S. Yamaguchi (Discord: ryu.sql)")
-script_version("2.2")
+script_version("2.3")
 
 -- ==========================
 -- REQUIREMENTS
@@ -18,7 +18,7 @@ local autoFishing = false
 local waitingForCatch = false
 local minWeight = 20           -- minimum weight to keep
 local castDelay = 1000         -- /fish delay in ms
-local throwbackDelay = 700     -- /throwback delay in ms
+local throwbackDelay = 1000     -- /throwback delay in ms
 local fishLinePattern = "You have caught a .- weighing (%d+%.?%d*)"
 
 -- ==========================
@@ -69,7 +69,7 @@ end)
 -- ==========================
 function sampev.onServerMessage(color, text)
     if not autoFishing then return end
-    local clean = text:gsub("{.-}", "") -- remove formatting
+    local clean = text:gsub("{.-}", "")
 
     -- Not in fishing area
     if clean:find("You are not at the Santa Maria Pier") then
@@ -80,6 +80,12 @@ function sampev.onServerMessage(color, text)
     -- Fishing break
     if clean:find("You have caught enough fish for now") then
         stopAutoFish("Fishing break.")
+        return
+    end
+
+    -- Inventory full (5 fishes)
+    if clean:find("You can't carry more than five fish at a time") then
+        stopAutoFish("Fish inventory full (5/5).")
         return
     end
 
